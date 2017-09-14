@@ -1,0 +1,70 @@
+CREATE TABLE tbl_USERS (
+    id INTEGER PRIMARY KEY,
+    login TEXT NOT NULL,
+    fullname TEXT,
+    password TEXT,
+    date_added TEXT DEFAULT CURRENT_DATE,
+    enabled INTEGER DEFAULT 1,
+    UNIQUE(login) ON CONFLICT ABORT
+);
+
+CREATE TABLE tbl_PROJECTS (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT "",
+    date_added TEXT DEFAULT CURRENT_DATE,
+    UNIQUE(name) ON CONFLICT ABORT
+);
+
+
+CREATE TABLE tbl_REQUIREMENTS (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT "",
+    date_added TEXT DEFAULT CURRENT_DATE,
+    UNIQUE(name) ON CONFLICT ABORT
+);
+
+
+CREATE TABLE tbl_PROJECT_REQUIREMENTS (
+    id INTEGER PRIMARY KEY,
+    id_project INTEGER,
+    id_requirement INTEGER,
+    idx INTEGER,
+    date_added TEXT DEFAULT CURRENT_DATE,
+    UNIQUE(id_project, id_requirement) ON CONFLICT ABORT,
+    FOREIGN KEY(id_project) REFERENCES id(tbl_PROJECTS),
+    FOREIGN KEY(id_requirement) REFERENCES id(tbl_REQUIREMENTS) ON DELETE RESTRICT
+);
+
+
+CREATE TABLE tbl_TESTS (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT "",
+    date_added TEXT DEFAULT CURRENT_DATE,
+    UNIQUE(name) ON CONFLICT ABORT
+);
+
+
+CREATE TABLE tbl_REQUIREMENTS_TESTS (
+    id INTEGER PRIMARY KEY,
+    id_requirement INTEGER,
+    id_test INTEGER,
+    description TEXT,
+    date_added TEXT DEFAULT CURRENT_DATE,
+    FOREIGN KEY(id_requirement) REFERENCES id(tbl_REQUIREMENTS) ON DELETE RESTRICT,
+    FOREIGN KEY(id_test) REFERENCES id(tbl_TESTS) ON DELETE RESTRICT
+);
+
+
+CREATE TABLE tbl_UPDATES (
+    id INTEGER PRIMARY KEY,
+    id_user INTEGER,
+    operation TEXT NOT NULL,
+    field TEXT DEFAULT "",
+    old_value TEXT DEFAULT "",
+    newvalue TEXT NOT NULL,
+    update_date TEXT CURRENT_DATE,
+    FOREIGN KEY(id_user) REFERENCES id(tbl_USERS) ON DELETE RESTRICT
+);
