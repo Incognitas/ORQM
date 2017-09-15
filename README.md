@@ -5,17 +5,20 @@
 Open Req Manager
 
 Because managing requirements and associated tests should not be painful !
-Trying tomake a simple tool to manage this.
+Trying to make a simple tool to manage this.
 
 Base data to know on this:
 
-- use SQL (sqlite or other engines later)
 - use C++
-- Use Qt / QML for multi OS support
+- Use Qt for multi OS support
+- QML used for GUI 
+- use SQL:
+  - sqlite first
+  - other engines later (thanks to QtSql abstraction for easier addition of engines)
 
 ## TODO / WISHLIST
 
-What is to be expected from this tool:
+What is to be expected from this tool (for now):
 
 - Add/remove users
 - Add/remove projects (name, description, date added)
@@ -28,6 +31,7 @@ What is to be expected from this tool:
   - etc (list to be completed)
 - Possibility to have a log of all modifications performed on the database. This will allow users to fetch:
   - modifications between two dates for a given project (more options to define)
+  - additions/removals/updates for all elements
 
 
 TODO: update this document for more formal content
